@@ -7,6 +7,11 @@ rootRoute.get("^/$|index(.html)?", function (req, res) {
 	res.sendFile(path.join(__dirname, "..", "views", "index.html"))
 })
 
+// auth required to access home page : just to test
+rootRoute.post("^/$|index(.html)?", function (req, res, next) {
+	res.send(`${req.body.name}`)
+})
+
 rootRoute.get("/new-page(.html)?", function (req, res) {
 	res.sendFile(path.join(__dirname, "..", "views", "new-page.html"))
 })
