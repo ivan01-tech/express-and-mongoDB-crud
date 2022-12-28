@@ -1,32 +1,33 @@
 const jwt = require("jsonwebtoken")
-require("dotenv").config()
+const { modelUsers } = require("../Models/Users.js")
 
-const usersDB = {
-	users: require("../Models/users.json"),
-	setUsers: function (data) { this.users = data }
-}
 
-const refreshController = function (req, res,) {
+const refreshController = async function (req, res,) {
 	const cookies = req.cookies
 	if (!cookies?.jwt) return res.sendStatus(401) //forbidden
-
-	console.log(cookies)
 	console.log(cookies.jwt)
 
 	const refreshToken = cookies.jwt
-	const matchUser = usersDB.users.find(person => person.refreshToken == refreshToken)
+	const matchUser = await modelUsers.findOne({ refreshToken }).exec()
 
-	if (!matchUser) return res.status(403)
+	if (!matchUser) return res.sendStatus(403)
 
 	// evaluate JWT 
 	jwt.verify(refreshToken,
 		process.env.REFRESH_TOKEN_KEY,
 		function (err, decoded) {
 			if (err || decoded.name !== matchUser.name) return res.sendStatus(403)
-			const accesstoken = jwt.sign(
-				{ "name": decoded.name },
+
+			const roles = Object.values(matchUser.roles)
+
+			const accesstoken = jwt.sign({
+				"UserInfo": {
+					"name": decoded.name,
+					"roles": roles
+				}
+			},
 				process.env.ACCESS_TOKEN_KEY,
-				{ expiresIn: "60s" }
+				{ expiresIn: "90s" }
 			)
 			res.json({ accesstoken })
 		})

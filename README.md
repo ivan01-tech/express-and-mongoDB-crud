@@ -1,2 +1,3 @@
-# express-middleware
-very simple node.js  app that use express-middleware( get started express )
+# mongoDB CRUD App
+
+#### A nodejs/express api that implement CRUD operation using mongoBD and mongoose as database
