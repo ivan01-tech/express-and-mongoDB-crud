@@ -3,6 +3,7 @@ const { modelUsers } = require("../Models/Users.js")
 
 const registerController = async function (req, res,) {
 	const { name, password } = req.body
+
 	if (!name || !password) return res.status(500).json({ "message": "server required name and password" })
 
 	// ckeck for duplication

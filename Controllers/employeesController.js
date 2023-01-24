@@ -3,7 +3,7 @@ const modelEmployees = require("../Models/Employees.js")
 const getAllEmployees = async function (req, res, next) {
 	console.log(".....................UDBDBODUUO.................")
 	const result = await modelEmployees.find()
-
+	console.log("result : ", result);
 	if (!result) return res.send(201).json({ "message": "No employees found ! " })
 
 	res.json(result)

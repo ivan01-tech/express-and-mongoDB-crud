@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const { modelUsers } = require("../Models/Users.js")
+const modelUsers = require("../Models/Users.js")
 
 
 const refreshController = async function (req, res,) {
@@ -20,16 +20,16 @@ const refreshController = async function (req, res,) {
 
 			const roles = Object.values(matchUser.roles)
 
-			const accesstoken = jwt.sign({
+			const accessToken = jwt.sign({
 				"UserInfo": {
 					"name": decoded.name,
 					"roles": roles
 				}
 			},
 				process.env.ACCESS_TOKEN_KEY,
-				{ expiresIn: "90s" }
+				{ expiresIn: "10s" }
 			)
-			res.json({ accesstoken })
+			res.json({ accessToken, roles })
 		})
 
 }

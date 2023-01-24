@@ -2,8 +2,8 @@ require("dotenv").config()
 const path = require("node:path")
 const express = require("express")
 const cookieParser = require("cookie-parser")
-const cors = require('cors')
 const mongoose = require("mongoose")
+const cors = require('cors')
 
 const employeeRoute = require('./Routes/api/employee.js')
 const { logger } = require("./middleware/eventLogs.js")
@@ -17,6 +17,7 @@ const { verifyJWT } = require("./middleware/verifiyJWT.js")
 const refreshRouter = require("./Routes/refresh.js")
 const logoutRouter = require("./Routes/logout.js")
 const connectDB = require("./config/dbConnection.js")
+const usersRoute = require("./Routes/api/users.js")
 
 const app = express()
 const port = process.env.PORT || 3500
@@ -51,6 +52,7 @@ app.use("/logout", logoutRouter)
 // all routes after this will be protected
 app.use(verifyJWT)
 app.use("/employees", employeeRoute)
+app.use("/users", usersRoute)
 app.use("/sub", subRoute)
 
 // app.use is use for middleware and app.all is commonly use for routing

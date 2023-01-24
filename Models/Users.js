@@ -11,8 +11,8 @@ const schemaUsers = new mongoose.Schema({
 		User: { type: Number, default: ROLES_LIST.User },
 	}
 })
-schemaUsers
 
-const modelUsers = mongoose.model("Users", schemaUsers)
 
-module.exports = { modelUsers, schemaUsers }
+const modelUsers = mongoose.models.User || mongoose.model("User", schemaUsers)
+
+module.exports = modelUsers 

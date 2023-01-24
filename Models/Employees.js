@@ -5,6 +5,6 @@ const schemaEmployees = new mongoose.Schema({
 	lastname: { type: String, require: true, minLength: 4, maxLength: 20 },
 })
 
-const modelEmployees = mongoose.model("Employees", schemaEmployees)
+const modelEmployees = mongoose.models.Employee || mongoose.model("Employee", schemaEmployees)
 
 module.exports = modelEmployees

@@ -5,3 +5,5 @@
 22/12/2022, 23:28:35	b82d698f-c6d5-4bc4-9eaf-45ea61b85f6b	path is not defined	/sub	undefined	GET
 23/12/2022, 07:02:16	dbc9bc87-48b5-480a-a6bb-79a34e1e409f	data is not defined	/employees	undefined	GET
 24/12/2022, 10:05:17	6197d0ac-39e9-4f2f-803b-0cca8add6e90	Cannot set headers after they are sent to the client	/auth	undefined	POST
+12/01/2023, 21:17:08	94902aed-cfcc-40c7-8d6b-6ad4425d329a	Not allowed by CORS	/register	http://localhost:3001	OPTIONS
+12/01/2023, 21:17:57	ef3c6de1-c969-4214-b4c3-5d9417464b2d	Not allowed by CORS	/register	http://localhost:3001	OPTIONS

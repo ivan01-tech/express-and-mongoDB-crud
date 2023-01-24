@@ -1,8 +1,7 @@
-
 require("dotenv").config()
 const bcript = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const { modelUsers, schemaUsers } = require("../Models/Users.js")
+const modelUsers = require("../Models/Users.js")
 
 const authController = async function (req, res,) {
 	const { name, password } = req.body
@@ -10,7 +9,7 @@ const authController = async function (req, res,) {
 
 	// ckeck for duplication
 	// const matchUser = usersDB.users.find(person => person.name == name)
-	const matchUser = await modelUsers.findOne({ name }).exec()
+	const matchUser = await modelUsers?.findOne({ name }).exec()
 	// 401 for unAuth
 	if (!matchUser) return res.status(401).send("Unauthorized !")
 
@@ -18,7 +17,7 @@ const authController = async function (req, res,) {
 
 	if (matchpassword) {
 		// verify JWT
-		const roles = Object.values(matchUser.roles)
+		const roles = Object.values(matchUser.roles).filter(Boolean)
 		console.log("roles : ", roles)
 		// we just send the roles values not his signification
 		const accesToken = jwt.sign(
@@ -44,7 +43,8 @@ const authController = async function (req, res,) {
 		console.log(result)
 		// this can be save as cookie on client
 		res.cookie("jwt", refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
-		res.json({ "accesstoken": `${accesToken}` })
+
+		res.json({ accesToken, roles })
 
 	} else {
 		// 409 for conflict}

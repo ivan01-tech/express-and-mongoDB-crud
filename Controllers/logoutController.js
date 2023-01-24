@@ -2,6 +2,7 @@ const { modelUsers } = require("../Models/Users.js")
 
 const logoutController = async function (req, res,) {
 	// we also need to dlelte the cookie on the client "access token"
+	// if there is no cookie , so there is no content to delelte
 	const cookies = req.cookies
 	if (!cookies?.jwt) return res.sendStatus(204) //no content
 
