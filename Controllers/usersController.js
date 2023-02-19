@@ -1,7 +1,6 @@
 const modelUsers = require("../Models/Users")
 
 const getAllUsers = async function (req, res, next) {
-	console.log(".....................UDBDBODUUO.................")
 	const result = await modelUsers.find()
 	console.log("result : ", result);
 	if (!result) return res.send(201).json({ "message": "No Users found ! " })

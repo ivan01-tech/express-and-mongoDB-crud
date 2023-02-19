@@ -3,7 +3,7 @@ const bcript = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const modelUsers = require("../Models/Users.js")
 
-const authController = async function (req, res,) {
+const authController = async function (req, res) {
 	const { name, password } = req.body
 	if (!name || !password) return res.status(500).json({ "message": "server required name and password" })
 

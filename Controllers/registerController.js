@@ -1,13 +1,14 @@
 const bcript = require("bcrypt")
-const { modelUsers } = require("../Models/Users.js")
+// const { UserDatabase } = require("../Models/Users.js")
+// const { UserDatabase } = require("../utils/userDatabase.js")
 
-const registerController = async function (req, res,) {
+const register = async function (req, res,) {
 	const { name, password } = req.body
 
 	if (!name || !password) return res.status(500).json({ "message": "server required name and password" })
 
 	// ckeck for duplication
-	const dupliated = await modelUsers.findOne({ name }).exec()
+	const dupliated = await UserDatabase
 
 	console.log(dupliated)
 
@@ -20,11 +21,11 @@ const registerController = async function (req, res,) {
 	// we don't need to specify the user roles because it has a default value
 	try {
 
-		const result = await modelUsers.create({
+		const result = await UserDatabase.create({
 			"name": name,
 			"password": hashPassword,
 		})
-		console.log(result)
+		// console.log(result)
 
 		res.status(201).json({ "message": `new user created ${name}` })
 
@@ -35,4 +36,8 @@ const registerController = async function (req, res,) {
 
 	}
 }
+
+/* function registerController (database){
+return register
+} */
 module.exports = { registerController }
